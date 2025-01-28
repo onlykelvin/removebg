@@ -2,11 +2,11 @@
 
 A modern, fast, and free web application that removes backgrounds from images directly in your browser. No signup required, no server processing - everything happens client-side for maximum privacy and speed.
 
-![RemoveBG Screenshot](https://images.unsplash.com/photo-1635002964051-738233b04c64?q=80&w=1200&auto=format)
+https://onlykelvin.github.io/removebg/
 
 ## Features
 
-- 🖼️ Instant background removal from images
+- 🖼️ Free background removal from images
 - 🔒 100% client-side processing - your images never leave your browser
 - 📱 Responsive design that works on desktop and mobile
 - 🎯 Drag and drop interface
@@ -70,10 +70,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
