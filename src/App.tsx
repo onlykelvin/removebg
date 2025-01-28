@@ -73,10 +73,13 @@ function App() {
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Background Remover
+            RemoveBG
           </h1>
           <p className="text-lg text-gray-600">
-            Remove backgrounds from your images instantly, right in your browser
+            Transform your images instantly with our free background removal tool
+          </p>
+          <p className="text-sm text-gray-500 mt-2">
+            No signup required • 100% free • Processing happens in your browser
           </p>
         </div>
 
