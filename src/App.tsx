@@ -12,6 +12,7 @@ interface ProcessedImage {
 
 function App() {
   const [images, setImages] = useState<ProcessedImage[]>([]);
+  const [clipboardError, setClipboardError] = useState<string>('');
   
   const onDrop = async (acceptedFiles: File[]) => {
     const newImages = acceptedFiles.map(file => ({
@@ -77,6 +78,26 @@ function App() {
     };
   }, []);
 
+  const handleClipboardButton = async () => {
+    try {
+      const clipboardItems = await navigator.clipboard.read();
+      setClipboardError('');
+
+      for (const clipboardItem of clipboardItems) {
+        const imageTypes = clipboardItem.types.filter(type => type.startsWith('image/'));
+        
+        for (const imageType of imageTypes) {
+          const blob = await clipboardItem.getType(imageType);
+          const file = new File([blob], `pasted-image-${Date.now()}.png`, { type: imageType });
+          await onDrop([file]);
+        }
+      }
+    } catch (error) {
+      setClipboardError('Please use Ctrl+V or copy an image first');
+      setTimeout(() => setClipboardError(''), 3000);
+    }
+  };
+
   const downloadImage = (url: string, filename: string) => {
     const a = document.createElement('a');
     a.href = url;
@@ -105,15 +126,22 @@ function App() {
           <p className="text-sm text-gray-500 mt-2 mb-4">
             No signup required • 100% free • Processing happens in your browser
           </p>
-          <button
-            onClick={() => document.body.focus()}
-            className="inline-flex items-center gap-2 bg-white text-gray-600 px-4 py-2 
-                     rounded-lg border border-gray-200 hover:bg-gray-50 
-                     transition-colors duration-200 text-sm"
-          >
-            <Clipboard className="w-4 h-4" />
-            Paste from Clipboard with Ctrl+V
-          </button>
+          <div className="space-y-2">
+            <button
+              onClick={handleClipboardButton}
+              className="inline-flex items-center gap-2 bg-white text-gray-600 px-4 py-2 
+                       rounded-lg border border-gray-200 hover:bg-gray-50 
+                       transition-colors duration-200 text-sm"
+            >
+              <Clipboard className="w-4 h-4" />
+              Paste from Clipboard (or press Ctrl+V)
+            </button>
+            {clipboardError && (
+              <p className="text-sm text-red-500 animate-fade-in">
+                {clipboardError}
+              </p>
+            )}
+          </div>
         </div>
 
         <div
