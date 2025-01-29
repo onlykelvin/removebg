@@ -112,7 +112,7 @@ function App() {
                      transition-colors duration-200 text-sm"
           >
             <Clipboard className="w-4 h-4" />
-            Paste from Clipboard (or press Ctrl+V)
+            Paste from Clipboard with Ctrl+V
           </button>
         </div>
 
