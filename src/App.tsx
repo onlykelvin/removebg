@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { removeBackground } from '@imgly/background-removal';
-import { Upload, Download, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { Upload, Download, Image as ImageIcon, Loader2, Clipboard } from 'lucide-react';
 
 interface ProcessedImage {
   original: string;
@@ -53,6 +53,30 @@ function App() {
     }
   });
 
+  const handlePaste = async (event: ClipboardEvent) => {
+    const items = event.clipboardData?.items;
+    if (!items) return;
+
+    const imageItems = Array.from(items).filter(
+      item => item.type.indexOf('image') !== -1
+    );
+
+    for (const item of imageItems) {
+      const file = item.getAsFile();
+      if (file) {
+        await onDrop([file]);
+      }
+    }
+  };
+
+  // Add paste event listener
+  React.useEffect(() => {
+    document.addEventListener('paste', handlePaste);
+    return () => {
+      document.removeEventListener('paste', handlePaste);
+    };
+  }, []);
+
   const downloadImage = (url: string, filename: string) => {
     const a = document.createElement('a');
     a.href = url;
@@ -78,9 +102,18 @@ function App() {
           <p className="text-lg text-gray-600">
             Transform your images instantly with our free background removal tool
           </p>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-gray-500 mt-2 mb-4">
             No signup required • 100% free • Processing happens in your browser
           </p>
+          <button
+            onClick={() => document.body.focus()}
+            className="inline-flex items-center gap-2 bg-white text-gray-600 px-4 py-2 
+                     rounded-lg border border-gray-200 hover:bg-gray-50 
+                     transition-colors duration-200 text-sm"
+          >
+            <Clipboard className="w-4 h-4" />
+            Paste from Clipboard (or press Ctrl+V)
+          </button>
         </div>
 
         <div
