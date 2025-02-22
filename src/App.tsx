@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { removeBackground } from '@imgly/background-removal';
 import { Upload, Download, Image as ImageIcon, Loader2, Clipboard } from 'lucide-react';
+import { useEffect } from 'react';
 
 interface ProcessedImage {
   original: string;
