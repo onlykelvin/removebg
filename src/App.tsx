@@ -11,6 +11,10 @@ interface ProcessedImage {
 }
 
 function App() {
+    useEffect(() => {
+    window.insidee?.init("09cf985e-9156-4f57-b706-073bfb514c26");
+  }, []);
+  
   const [images, setImages] = useState<ProcessedImage[]>([]);
   const [clipboardError, setClipboardError] = useState<string>('');
   
